@@ -3,4 +3,6 @@
 import led
 
 led.connect()
-led.setLed(50, '\x00\xFF\x00')
+led.setLed(2, 0, 255, 0)
+led.flush()
+led.show()

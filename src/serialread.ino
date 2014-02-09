@@ -14,7 +14,7 @@ int num = 0;
 char r, g, b;
 
 void setup() {
-  Serial.begin(500000);
+  Serial.begin(1000000);
   Serial.println("Connected");
   // Initialize LEDs
   FastLED.addLeds<WS2811, DATA_PIN, RGB>(leds, NUM_LEDS);
@@ -43,7 +43,16 @@ void test2() {
 	    buffer.b = tmp[3];
 
 	    //Serial.println("Got color "+num);
+            //Serial.flush();
 	    setLedTo(num, buffer);
+        }
+        break;
+    case 2: // set ALL LEDs
+        size = Serial.readBytes(tmp, 3);
+	if(size>2) {
+	    //Serial.println("Got color "+num);
+            //Serial.flush();
+	    setAllLedsTo(CHSV(tmp[0], tmp[1], tmp[1]));
         }
         break;
     }
