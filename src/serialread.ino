@@ -42,8 +42,7 @@ void test2() {
 	    buffer.g = tmp[2];
 	    buffer.b = tmp[3];
 
-	    //Serial.write("Got color");
-	    //Serial.println(); 
+	    //Serial.println("Got color "+num);
 	    setLedTo(num, buffer);
         }
         break;
@@ -85,13 +84,12 @@ void test1() {
   	    buffer.r = Serial.read();
   	    buffer.g = Serial.read();
   	    buffer.b = Serial.read();
-	    Serial.write("Got color");
+	    Serial.print("Got color");
 	    //Serial.write(buffer.r); 
 	    //Serial.write(", ");
 	    //Serial.write(buffer.g); 
 	    //Serial.write(", ");
 	    //Serial.write(buffer.b);
-	    Serial.println(); 
 	    setLedTo(num, buffer);
 	    FastLED.show();
 	    //break;

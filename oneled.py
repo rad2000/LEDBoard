@@ -1,9 +1,6 @@
 #!/usr/bin/python
 
-import time
-import serial
+import led
 
-ser = serial.Serial('/dev/ttyUSB0', 500000)
-
-led = '\x50\x00\xFF\x00'
-ser.write(led)
+led.connect()
+led.setLed(50, '\x00\xFF\x00')
