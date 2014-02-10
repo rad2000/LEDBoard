@@ -2,7 +2,11 @@
 
 import led
 
-led.connect()
-led.setLed(2, 0, 255, 0)
-led.flush()
-led.show()
+
+def doit():
+    led.connect()
+    led.setLed(2, 255, 255, 0)
+    led.flush()
+    led.show()
+
+doit()
