@@ -31,17 +31,18 @@ def setAllLed( r, g, b ):
     #    setLed(led, r, g, b)
     #ser.flush()
     ser.write(arr.tostring())
-    show()
+    #show()
 
+def setBatch( batch ):
+    ser.write(chr(3))
+    ser.write(batch.tostring())
 
 def flush():
     ser.flush();
 
-
-
 def connect():
     global ser
-    ser = serial.Serial('/dev/ttyUSB0', 1000000)
+    ser = serial.Serial('/dev/ttyACM0', 1000000)
 
 def monitor():
     while 1 : ser.readline()

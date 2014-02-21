@@ -9,6 +9,7 @@
 CRGB leds[NUM_LEDS];
 CRGB buffer;
 char tmp[5];
+char bulkTmp[NUM_LEDS*3];
 int pos = 0;
 int num = 0;
 char r, g, b;
@@ -28,6 +29,7 @@ void loop() {
 
 int size;
 int cmd;
+int lednum = 0;
 void test2() {
     cmd = Serial.read();
     switch(cmd) {
@@ -36,23 +38,32 @@ void test2() {
         break;
     case 1: // set LED
         size = Serial.readBytes(tmp, 4);
-	if(size>3) {
-	    num = tmp[0];
-	    buffer.r = tmp[1];
-	    buffer.g = tmp[2];
-	    buffer.b = tmp[3];
+        if(size>3) {
+            num = tmp[0];
+            buffer.r = tmp[1];
+            buffer.g = tmp[2];
+            buffer.b = tmp[3];
 
-	    //Serial.println("Got color "+num);
+            //Serial.println("Got color "+num);
             //Serial.flush();
-	    setLedTo(num, buffer);
+            setLedTo(num, buffer);
         }
         break;
     case 2: // set ALL LEDs
         size = Serial.readBytes(tmp, 3);
-	if(size>2) {
-	    //Serial.println("Got color "+num);
+        if(size>2) {
+            //Serial.println("Got color "+num);
             //Serial.flush();
-	    setAllLedsTo(CHSV(tmp[0], tmp[1], tmp[1]));
+            setAllLedsTo(CHSV(tmp[0], tmp[1], tmp[1]));
+        }
+        break;
+    case 3: // bulk
+        Serial.readBytes(bulkTmp, NUM_LEDS*3);
+        for(int i=0; i<NUM_LEDS; i+=3) {
+            buffer.r = bulkTmp[i];
+            buffer.g = bulkTmp[i+1];
+            buffer.b = bulkTmp[i+2];
+            setLedTo(i, buffer);
         }
         break;
     }
